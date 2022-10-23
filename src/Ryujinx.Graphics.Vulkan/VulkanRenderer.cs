@@ -295,6 +295,7 @@ namespace Ryujinx.Graphics.Vulkan
                 _physicalDevice.IsDeviceExtensionPresent("VK_NV_geometry_shader_passthrough"),
                 supportsSubgroupSizeControl,
                 featuresShaderInt8.ShaderInt8,
+                _physicalDevice.IsDeviceExtensionPresent(ExtBufferDeviceAddress.ExtensionName),
                 _physicalDevice.IsDeviceExtensionPresent("VK_EXT_shader_stencil_export"),
                 _physicalDevice.IsDeviceExtensionPresent(ExtConditionalRendering.ExtensionName),
                 _physicalDevice.IsDeviceExtensionPresent(ExtExtendedDynamicState.ExtensionName),
@@ -456,6 +457,11 @@ namespace Ryujinx.Graphics.Vulkan
         public PinnedSpan<byte> GetBufferData(BufferHandle buffer, int offset, int size)
         {
             return BufferManager.GetData(buffer, offset, size);
+        }
+
+        public ulong GetBufferGpuAddress(BufferHandle buffer)
+        {
+            return BufferManager.GetBufferGpuAddress(buffer);
         }
 
         public unsafe Capabilities GetCapabilities()
